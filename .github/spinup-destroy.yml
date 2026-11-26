@@ -3,7 +3,8 @@ name: Configure Azure environment
 on:
   pull_request:
     types: [labeled]
-
+build:
+  if: contains(github.event.pull_request.labels.*.name, 'stage')
 
 jobs:
   setup-up-azure-resources:
