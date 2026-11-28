@@ -4,31 +4,23 @@ on:
   pull_request:
     types: [labeled]
 
-env:
-  IMAGE_REGISTRY_URL: ghcr.io
-  ###############################################
-  ### Replace <username> with GitHub username ###
-  ###############################################
-  DOCKER_IMAGE_NAME: <username>-azure-ttt
-  AZURE_WEBAPP_NAME: <username>-ttt-app
-  ###############################################
-
 jobs:
   build:
-    if: contains(github.event.pull_request.labels.*.name, 'stage')
-
+    if: ${{ github.event.label.name == 'stage' }}
     runs-on: ubuntu-latest
-
-   
+    steps:
+      - run: echo "Dry run - would build and test the app."
 
   Build-Docker-Image:
+    name: Simulate building and publishing the Docker image
     runs-on: ubuntu-latest
     needs: build
-    name: Build image and store in GitHub Container Registry
-   
-    
+    steps:
+      - run: echo "Dry run - would build and push the Docker image to GHCR."
+
   Deploy-to-Azure:
+    name: Simulate deploying to Azure
     runs-on: ubuntu-latest
     needs: Build-Docker-Image
-   
-      
+    steps:
+      - run: echo "Dry run - would deploy the image to Azure staging."
