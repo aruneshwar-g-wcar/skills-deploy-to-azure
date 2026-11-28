@@ -1,0 +1,20 @@
+name: Configure Azure environment
+
+on:
+  pull_request:
+    types: [labeled]
+
+jobs:
+  setup-up-azure-resources:
+    if: ${{ github.event.label.name == 'spin up environment' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Simulate creating the environment
+        run: echo "Dry run - would create the Azure environment."
+
+  destroy-azure-resources:
+    if: ${{ github.event.label.name == 'destroy environment' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Simulate destroying the environment
+        run: echo "Dry run - would destroy the Azure environment."
